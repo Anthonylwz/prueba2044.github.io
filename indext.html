@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Abarrotes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            grid-template-columns: 1fr;
+            background-color: #D9BFA0;
+            color: #102601;
+        }
+
+        header {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            background-color: #5F432E;
+            padding: 10px;
+            color: #D9BFA0;
+        }
+
+        header img {
+            max-height: 50px;
+        }
+
+        #logo {
+            grid-column: 1;
+        }
+
+        #nombre-tienda {
+            grid-column: 2;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #imagen-rotativa {
+            grid-column: 3;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        #imagen-rotativa img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        #menu {
+            background-color: #185948;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #menu ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            padding: 0;
+        }
+
+        #menu ul li {
+            cursor: pointer;
+            color: #D9BFA0;
+        }
+
+        #menu ul li:hover {
+            text-decoration: underline;
+        }
+
+        .search-bar {
+            padding: 10px;
+            border: 1px solid #C09465;
+            border-radius: 5px;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        #categorias {
+            background-color: #C09465;
+            padding: 10px;
+            color: #fff;
+        }
+
+        #productos {
+            background-color: #fff;
+            padding: 10px;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            gap: 10px;
+        }
+
+        .producto {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: white;
+        }
+
+        .producto img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        #contacto {
+            padding: 15px;
+            background-color: #102601;
+            color: #D9BFA0;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .rotating-image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        #productos-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Rotating image in the header
+            const headerImages = ["img1.jpg", "img2.jpg", "img3.jpg"];
+            const rotatingHeader = document.getElementById('rotating-header-image');
+            let headerIndex = 0;
+            setInterval(() => {
+                rotatingHeader.src = headerImages[headerIndex];
+                headerIndex = (headerIndex + 1) % headerImages.length;
+            }, 10000);
+
+            // Search functionality
+            const searchBar = document.querySelector('.search-bar');
+            const products = {
+                "aceite": "#producto-aceite",
+                "harina": "#producto-harina",
+                "azúcar": "#producto-azucar",
+                "arroz": "#producto-arroz",
+                "frijoles": "#producto-frijoles",
+                "leche": "#producto-leche"
+            };
+
+            searchBar.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                if (products[query]) {
+                    window.location.hash = products[query];
+                }
+            });
+
+            // Category menu
+            document.querySelectorAll('#menu ul li').forEach(item => {
+                item.addEventListener('click', () => {
+                    alert(`Sección: ${item.textContent}`);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+
+<header>
+    <div id="logo">
+        <img src="logo.png" alt="Logo">
+    </div>
+
+    <div id="nombre-tienda">
+        Tienda de Abarrotes
+    </div>
+
+    <div id="imagen-rotativa">
+        <img id="rotating-header-image" class="rotating-image" src="img1.jpg" alt="Imagen Rotativa">
+    </div>
+</header>
+
+<nav id="menu">
+    <ul>
+        <li>Inicio</li>
+        <li>Alimentos</li>
+        <li>Bebidas</li>
+        <li>Limpieza</li>
+        <li>Hogar</li>
+    </ul>
+    <input class="search-bar" type="text" placeholder="Buscar productos...">
+</nav>
+
+<main>
+    <section id="categorias">
+        <h2>Categorías</h2>
+        <ul>
+            <li>Alimentos</li>
+            <li>Bebidas</li>
+            <li>Limpieza</li>
+            <li>Hogar</li>
+        </ul>
+    </section>
+
+    <section id="productos">
+        <h2>Productos en Venta</h2>
+        <div id="productos-list">
+            <div id="producto-aceite" class="producto">
+                <img src="prod1.jpg" alt="Aceite">
+                <p>Aceite de Cocina</p>
+            </div>
+            <div id="producto-harina" class="producto">
+                <img src="prod2.jpg" alt="Harina">
+                <p>Harina</p>
+            </div>
+            <div id="producto-azucar" class="producto">
+                <img src="prod3.jpg" alt="Azúcar">
+                <p>Azúcar</p>
+            </div>
+            <div id="producto-arroz" class="producto">
+                <img src="prod4.jpg" alt="Arroz">
+                <p>Arroz</p>
+            </div>
+            <div id="producto-frijoles" class="producto">
+                <img src="prod5.jpg" alt="Frijoles">
+                <p>Frijoles</p>
+            </div>
+            <div id="producto-leche" class="producto">
+                <img src="prod6.jpg" alt="Leche">
+                <p>Leche</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sidebar">
+        <img id="rotating-sidebar-image" class="rotating-image" src="side1.jpg" alt="Imagen Lateral">
+    </section>
+</main>
+
+<section id="contacto">
+    <h2>Contacto y Ubicación</h2>
+    <p>Email: contacto@abarrotes.com</p>
+    <p>Teléfono: +123456789</p>
+    <p>Dirección: Calle Central 123, Ciudad</p>
+    <p>Horario: Lunes a Sábado, 8:00 AM - 8:00 PM</p>
+</section>
+
+
+</body>
+</html>
